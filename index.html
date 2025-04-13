@@ -1,13 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="pl">
 <head>
-  <title>Dodaj do Kalendarza</title>
-</head>
-<body>
-  <button onclick="openCalendar()">Dodaj badanie do Kalendarza Google</button>
-
+  <meta charset="UTF-8">
+  <title>Przekierowanie do Kalendarza Google</title>
   <script>
-    function openCalendar() {
+    window.onload = function () {
       const now = new Date();
       now.setDate(now.getDate() + 28);
 
@@ -15,10 +12,16 @@
       const endDate = new Date(now.getTime() + 30 * 60 * 1000) // 30 minut
         .toISOString().replace(/[-:]|\.\d{3}/g, '').slice(0, 15) + '00';
 
-      const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=Gabinet+Weterynaryjny+-+badanie+profilaktyczne&details=Badanie+profilaktyczne+w+gabinecie+weterynaryjnym&dates=${startDate}/${endDate}`;
+      const title = encodeURIComponent("Gabinet Weterynaryjny lek. wet. Marcin Markiewicz");
+      const details = encodeURIComponent("Przypomnienie – tego dnia kończy się ochrona po szczepieniu. Zapraszamy do umówienia wizyty.");
+      const location = encodeURIComponent("Chludowo, ul. Dworcowa 17");
 
-      window.open(url, '_blank');
-    }
+      const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&details=${details}&location=${location}&dates=${startDate}/${endDate}`;
+
+      window.location.href = url;
+    };
   </script>
+</head>
+<body>
 </body>
 </html>
